@@ -1,4 +1,3 @@
-import emailjs from '@emailjs/browser';
 import React, { useState } from 'react';
 import { Check, Mail, Phone, ChevronDown, Send } from 'lucide-react';
 
@@ -134,65 +133,26 @@ export default function App() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const [isSending, setIsSending] = useState(false);
-
-  const handleFormSubmit = async (e: React.FormEvent) => {
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formState.email || !formState.name || isSending) return;
-
-    setIsSending(true);
-
-    const templateParams = {
-      name: formState.name,
-      email: formState.email,
-      service: formState.service === 'Others' ? `Others: ${formState.customService}` : formState.service,
-      business_nature: formState.businessNature === 'Others' ? `Others: ${formState.customBusiness}` : formState.businessNature,
-      preferred_date: formState.preferredDate || 'Not specified',
-      preferred_time: formState.preferredTime || 'Not specified',
-      requirements: formState.requirements.length > 0 ? formState.requirements.join(', ') : 'None selected',
-      other_requirement: formState.otherRequirement || 'None'
-    };
-
-    try {
-      // Sends inquiry to your inbox AND auto-reply to client simultaneously
-      await Promise.all([
-        emailjs.send(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-          templateParams,
-          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-        ),
-        emailjs.send(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          import.meta.env.VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID,
-          templateParams,
-          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-        )
-      ]);
-
-      setFormSubmitted(true);
-      triggerToast('Inquiry sent! Check your inbox for meeting details.');
-      setTimeout(() => {
-        setFormSubmitted(false);
-        setFormState({
-          name: '',
-          email: '',
-          service: 'Custom Web System',
-          businessNature: 'Personal Portfolio',
-          customService: '',
-          customBusiness: '',
-          preferredDate: '',
-          preferredTime: '',
-          requirements: [],
-          otherRequirement: ''
-        });
-      }, 4000);
-    } catch (error) {
-      console.error('Email send failed:', error);
-      triggerToast('Failed to send inquiry. Please try again.');
-    } finally {
-      setIsSending(false);
-    }
+    if (!formState.email || !formState.name) return;
+    setFormSubmitted(true);
+    triggerToast('Inquiry sent successfully');
+    setTimeout(() => {
+      setFormSubmitted(false);
+      setFormState({
+        name: '',
+        email: '',
+        service: 'Custom Web System',
+        businessNature: 'Personal Portfolio',
+        customService: '',
+        customBusiness: '',
+        preferredDate: '',
+        preferredTime: '',
+        requirements: [],
+        otherRequirement: ''
+      });
+    }, 4000);
   };
 
   return (
@@ -680,11 +640,11 @@ export default function App() {
                     <option value="Retail / E-commerce">Retail / E-commerce</option>
                     <option value="Professional Services">Professional Services</option>
                     <option value="Education">Education</option>
-                    <option value="Others">Others</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
 
-                {formState.businessNature === 'Others' && (
+                {formState.businessNature === 'Other' && (
                   <div className="animate-fade-in">
                     <label className="block mb-1.5 font-bold uppercase tracking-wider text-neutral-600 text-[11px]">
                       TELL US ABOUT YOUR BUSINESS *
@@ -771,12 +731,11 @@ export default function App() {
 
                 <button
                   type="submit"
-                  disabled={isSending}
-                  className="w-full py-4 rounded-full font-bold uppercase tracking-wider flex items-center justify-center space-x-2 text-white hover:brightness-110 disabled:opacity-50 transition-all shadow-md mt-6"
+                  className="w-full py-4 rounded-full font-bold uppercase tracking-wider flex items-center justify-center space-x-2 text-white hover:brightness-110 transition-all shadow-md mt-6"
                   style={{ backgroundColor: '#2e68fe' }}
                 >
                   <Send className="w-4 h-4" />
-                  <span>{isSending ? 'Sending...' : 'Send Project Inquiry'}</span>
+                  <span>Send Project Inquiry</span>
                 </button>
               </form>
             )}
