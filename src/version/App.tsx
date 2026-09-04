@@ -1,15 +1,10 @@
+import emailjs from '@emailjs/browser';
 import React, { useState } from 'react';
 import { Check, Mail, Phone, ChevronDown, Send } from 'lucide-react';
 
 const FacebookIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
-  </svg>
-);
-
-const GithubIcon = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.833.092-.647.35-1.088.636-1.338-2.221-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.269 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.295 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
   </svg>
 );
 
@@ -133,26 +128,65 @@ export default function App() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const [isSending, setIsSending] = useState(false);
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formState.email || !formState.name) return;
-    setFormSubmitted(true);
-    triggerToast('Inquiry sent successfully');
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormState({
-        name: '',
-        email: '',
-        service: 'Custom Web System',
-        businessNature: 'Personal Portfolio',
-        customService: '',
-        customBusiness: '',
-        preferredDate: '',
-        preferredTime: '',
-        requirements: [],
-        otherRequirement: ''
-      });
-    }, 4000);
+    if (!formState.email || !formState.name || isSending) return;
+
+    setIsSending(true);
+
+    const templateParams = {
+      name: formState.name,
+      email: formState.email,
+      service: formState.service === 'Others' ? `Others: ${formState.customService}` : formState.service,
+      business_nature: formState.businessNature === 'Others' ? `Others: ${formState.customBusiness}` : formState.businessNature,
+      preferred_date: formState.preferredDate || 'Not specified',
+      preferred_time: formState.preferredTime || 'Not specified',
+      requirements: formState.requirements.length > 0 ? formState.requirements.join(', ') : 'None selected',
+      other_requirement: formState.otherRequirement || 'None'
+    };
+
+    try {
+      // Sends inquiry to your inbox AND auto-reply to client simultaneously
+      await Promise.all([
+        emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          templateParams,
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        ),
+        emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_AUTOREPLY_TEMPLATE_ID,
+          templateParams,
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        )
+      ]);
+
+      setFormSubmitted(true);
+      triggerToast('Inquiry sent! Check your inbox for meeting details.');
+      setTimeout(() => {
+        setFormSubmitted(false);
+        setFormState({
+          name: '',
+          email: '',
+          service: 'Custom Web System',
+          businessNature: 'Personal Portfolio',
+          customService: '',
+          customBusiness: '',
+          preferredDate: '',
+          preferredTime: '',
+          requirements: [],
+          otherRequirement: ''
+        });
+      }, 4000);
+    } catch (error) {
+      console.error('Email send failed:', error);
+      triggerToast('Failed to send inquiry. Please try again.');
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -640,11 +674,11 @@ export default function App() {
                     <option value="Retail / E-commerce">Retail / E-commerce</option>
                     <option value="Professional Services">Professional Services</option>
                     <option value="Education">Education</option>
-                    <option value="Other">Other</option>
+                    <option value="Others">Others</option>
                   </select>
                 </div>
 
-                {formState.businessNature === 'Other' && (
+                {formState.businessNature === 'Others' && (
                   <div className="animate-fade-in">
                     <label className="block mb-1.5 font-bold uppercase tracking-wider text-neutral-600 text-[11px]">
                       TELL US ABOUT YOUR BUSINESS *
@@ -731,11 +765,12 @@ export default function App() {
 
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-full font-bold uppercase tracking-wider flex items-center justify-center space-x-2 text-white hover:brightness-110 transition-all shadow-md mt-6"
+                  disabled={isSending}
+                  className="w-full py-4 rounded-full font-bold uppercase tracking-wider flex items-center justify-center space-x-2 text-white hover:brightness-110 disabled:opacity-50 transition-all shadow-md mt-6"
                   style={{ backgroundColor: '#2e68fe' }}
                 >
                   <Send className="w-4 h-4" />
-                  <span>Send Project Inquiry</span>
+                  <span>{isSending ? 'Sending...' : 'Send Project Inquiry'}</span>
                 </button>
               </form>
             )}
