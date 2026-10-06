@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Bot,
   ChevronDown,
@@ -8,7 +8,6 @@ import {
   Palette,
   Rocket,
   Smartphone,
-  Star,
   Wrench,
 } from 'lucide-react';
 

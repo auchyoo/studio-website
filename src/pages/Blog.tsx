@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function Blog() {
   return (
     <main className="bg-black text-white min-h-screen pt-24 sm:pt-36 pb-32">
