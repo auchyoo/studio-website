@@ -2,6 +2,40 @@
 
 @import "tailwindcss";
 
+
+/* 01 Studio — Bold & Squared Scrollbar */
+
+/* Firefox */
+html {
+  scrollbar-width: auto;
+  scrollbar-color: #2e68fe #111111;
+}
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2e68fe;
+  border-radius: 0;
+  border: 2px solid #111111;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5b87ff;
+}
+
+/* Optional: scrollbar corner for scrollable containers */
+::-webkit-scrollbar-corner {
+  background: #111111;
+}
+
 @font-face {
   font-family: 'MyFont';
   src: url('./assets/fonts/Tourner.ttf') format('truetype');

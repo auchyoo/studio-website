@@ -37,7 +37,7 @@ const categories: Category[] = [
       { label: 'Starting Price', value: 'From: USD 1,500' },
       { label: 'Project Duration', value: '10–12+ weeks' },
       { label: 'Best For', value: 'Businesses that need custom internal systems or automation' },
-      { label: 'Includes', value: 'Planning, development, testing, deployment, and handover' },
+      { label: 'Projects', value: '▪ Point-of-Sale (POS) Systems ▪ Appointment & Booking Systems ▪ Business Process Automation ▪ Sales and Inventory Management Systems ▪ School Records Management Systems' },
     ],
   },
   {
@@ -48,10 +48,10 @@ const categories: Category[] = [
       'Responsive websites and web applications designed to be fast, useful, and easy to maintain.',
     icon: Globe2,
     details: [
-      { label: 'Starting Price', value: 'From: USD 250' },
-      { label: 'Project Duration', value: '3–7+ weeks' },
+      { label: 'Starting Price', value: 'From: USD 350' },
+      { label: 'Project Duration', value: '3–10+ weeks' },
       { label: 'Best For', value: 'Businesses, organizations, professionals, and online services' },
-      { label: 'Includes', value: 'Responsive design, development, deployment, and basic optimization' },
+      { label: 'Projects', value: '▪ Personal Portfolios ▪ Business Websites ▪ E-Commerce Websites ▪ Web Applications ▪ Booking & Reservation Websites ▪ Membership Websites' },
     ],
   },
   {
@@ -65,7 +65,7 @@ const categories: Category[] = [
       { label: 'Starting Price', value: 'From: USD 1,500' },
       { label: 'Project Duration', value: '10–12+ weeks' },
       { label: 'Best For', value: 'Businesses that need a dedicated mobile experience' },
-      { label: 'Includes', value: 'UI implementation, core functionality, testing, and deployment support' },
+      { label: 'Projects', value: '▪ Food Delivery Apps ▪ Fitness & Wellness Apps ▪ Educational Apps ▪ Business Companion Apps ▪ On-Demand Service Apps ▪ Customer Loyalty Apps' },
     ],
   },
   {
@@ -76,10 +76,10 @@ const categories: Category[] = [
       'Intelligent chatbots that automate inquiries, provide information, and improve customer support.',
     icon: Bot,
     details: [
-      { label: 'Starting Price', value: 'From: USD 350' },
+      { label: 'Starting Price', value: 'From: USD 500' },
       { label: 'Project Duration', value: '4–6+ weeks' },
       { label: 'Best For', value: 'Businesses handling repetitive customer questions or inquiries' },
-      { label: 'Includes', value: 'Conversation design, chatbot development, knowledge setup, and testing' },
+      { label: 'Projects', value: '▪ Customer Support Chatbots ▪ Lead Generation Chatbots ▪ Internal Knowledge Chatbots ▪ Order Tracking Chatbots ▪ Appointment Booking Chatbots' },
     ],
   },
   {
@@ -93,7 +93,7 @@ const categories: Category[] = [
       { label: 'Starting Price', value: 'From: USD 250' },
       { label: 'Project Duration', value: '1–4+ weeks' },
       { label: 'Best For', value: 'Websites, applications, software, and digital products' },
-      { label: 'Includes', value: 'User flows, wireframes, interface design, and design direction' },
+      { label: 'Projects', value: '▪ Website UI/UX ▪ Mobile App Interfaces ▪ Dashboard Designs ▪ E-Commerce User Flows ▪ Wireframes & Prototypes ▪ Admin Panel Interfaces' },
     ],
   },
   {
@@ -106,7 +106,7 @@ const categories: Category[] = [
     details: [
       { label: 'Project Duration', value: 'Depends on scope' },
       { label: 'Best For', value: 'Startups, founders, and businesses validating a digital idea' },
-      { label: 'Includes', value: 'Technical planning, product development, iteration, and consultation' },
+      { label: 'Projects', value: '▪ MVP Development ▪ Product Strategy ▪ Technical Architecture ▪ Team Building' },
     ],
   },
   {
@@ -120,7 +120,7 @@ const categories: Category[] = [
       { label: 'Starting Price', value: 'From: USD 150+ / month' },
       { label: 'Project Duration', value: 'Ongoing' },
       { label: 'Best For', value: 'Existing websites, software, and applications needing continued support' },
-      { label: 'Includes', value: 'Bug fixes, updates, improvements, monitoring, and technical support' },
+      { label: 'Projects', value: '▪ Website Maintenance ▪ Software Bug Fixes ▪ System Updates & Upgrades ▪ Database Maintenance ▪ Performance Optimization ▪ Backup & Recovery Setup' },
     ],
   },
   {
@@ -134,7 +134,7 @@ const categories: Category[] = [
       { label: 'Starting Price', value: 'From: USD 150' },
       { label: 'Project Duration', value: '1–4+ weeks' },
       { label: 'Best For', value: 'Businesses that need a stronger or more cohesive visual identity' },
-      { label: 'Includes', value: 'Branding, graphics, visual direction, and digital assets' },
+      { label: 'Projects', value: '▪ Branding ▪ Graphics ▪ Visual Direction ▪ Digital Assets' },
     ],
   },
   {
@@ -148,7 +148,7 @@ const categories: Category[] = [
       { label: 'Starting Price', value: 'From: USD 150' },
       { label: 'Project Duration', value: 'Ongoing / campaign-based' },
       { label: 'Best For', value: 'Businesses looking to improve their online presence and reach' },
-      { label: 'Includes', value: 'Content, campaigns, digital presence, and marketing support' },
+      { label: 'Projects', value: '▪ Content Marketing ▪ Social Media Management ▪ Email Campaigns ▪ Content Planning & Calendars ▪ SEO Optimization' },
     ],
   },
 ];
@@ -159,7 +159,7 @@ const faqs = [
   { q: 'Do you offer ongoing support after launch?', a: 'Yes. Every project comes with 6 weeks of dedicated support after launch to fix bugs, handle adjustments, and keep things running smoothly. We also train you and your team on how to manage the site independently before handover. If you need continued help, updates, or maintenance after the 6-week window, you can hire us on an ongoing basis.' },
   { q: 'What is your pricing structure?', a: 'Pricing is scoped per project based on complexity and features. Reach out with your requirements and we will send a detailed quote — no fixed packages, no hidden fees.' },
   { q: 'Can we start small and add more features later?', a: 'Absolutely. We often recommend launching a streamlined version of your project first. That way, you get to market quickly, see real customer feedback, and expand features only when you need them.' },
-  { q: 'How do we keep track of progress while you build?', a: 'We keep things transparent. You’ll get weekly updates with clickable previews, so you always see exactly what stage we’re on and how things work before launch day.' },
+  { q: 'How do we keep track of progress while you build?', a: 'We keep things transparent. You’ll get weekly updates with previews, so you always see exactly what stage we’re on and how things work before launch day.' },
 ];
 
 /*
@@ -221,9 +221,7 @@ export default function WhatWeDo() {
           style={{ backgroundColor: '#2e68fe' }}
         >
           <p className="max-w-4xl mx-auto font-sans text-base sm:text-lg lg:text-xl text-white leading-relaxed">
-            From software and websites to design, marketing, and ongoing technical
-            support, we build practical digital solutions around what your business
-            actually needs.
+            From software and websites to design, marketing, and ongoing technical support, we build practical digital solutions around what your business actually needs.
           </p>
         </div>
       </section>
@@ -239,12 +237,12 @@ export default function WhatWeDo() {
             <div className="py-12 sm:py-16 lg:py-20">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 {/* ICON / VISUAL LEFT */}
-                <div className="lg:col-span-5 order-1">
+                <div className="lg:col-span-4 order-1">
                   <CategoryVisual category={category} />
                 </div>
 
                 {/* SERVICE INFORMATION RIGHT */}
-                <div className="lg:col-span-7 order-2">
+                <div className="lg:col-span-8 order-2">
                   <h2 className="font-sans font-bold text-3xl sm:text-4xl lg:text-5xl leading-[0.95] tracking-tight">
                     {category.title}
                   </h2>
@@ -257,12 +255,12 @@ export default function WhatWeDo() {
                     {category.details.map((detail) => (
                       <div
                         key={detail.label}
-                        className="grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-2 sm:gap-6 py-4 border-b border-white/10"
+                        className="grid grid-cols-1 sm:grid-cols-[150px_1fr] gap-2 sm:gap-6 py-4 border-b border-white/10"
                       >
                         <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#2e68fe]">
                           {detail.label}
                         </span>
-                        <span className="font-sans text-sm sm:text-base text-white/85">
+                        <span className="font-sans text-sm sm:text-base text-white/100">
                           {detail.value}
                         </span>
                       </div>
